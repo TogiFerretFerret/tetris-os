@@ -1,0 +1,23 @@
+name: Makefile CI
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: make
+
+    - name: Run check
+      run: make iso
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage-report
+        path: boot.iso
